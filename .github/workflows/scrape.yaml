@@ -1,0 +1,22 @@
+name: Scrape data
+
+on:
+  schedule:
+  - cron: "30 02 * * *"
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Run Python script
+      run: python -m scrape https://example.com --output data.csv
+    - name: Commit and push new data
+      run: |-
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add -A
+        timestamp=$(date -u)
+        git commit -m "Latest data: ${timestamp}" || exit 0
+        git push
