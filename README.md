@@ -1,1 +1,3 @@
-# github-scrape
+# GitHub Scrape
+
+Scrape data using GitHub Actions
